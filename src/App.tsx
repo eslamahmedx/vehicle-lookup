@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import OCRPage from "./components/pages/OCRPage";
 //import ManualPage from "./components/pages/ManualPage";
 
@@ -8,7 +8,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/ocr" />} />
         <Route path="/ocr" element={<OCRPage />} />
-        
       </Routes>
     </BrowserRouter>
   );

@@ -10,7 +10,7 @@ export default function MainLayout({
   const activeTab = location.pathname;
 
   return (
-    <div className="min-h-screen bg-gray-50 px-10 py-8">
+    <div className="min-h-screen mt-8 max-w-7xl mx-auto px-4 bg-gray-50 ">
       <h1 className="text-4xl font-bold text-gray-800">
         Vehicle Identification
       </h1>
@@ -43,7 +43,7 @@ export default function MainLayout({
         </Link>
       </div>
 
-      <div className="mt-8">{children}</div>
+      <div className="mt-8 ">{children}</div>
     </div>
   );
 }
