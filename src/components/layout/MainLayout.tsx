@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { Toaster } from "sonner";
 
 export default function MainLayout({
   children,
@@ -21,22 +22,20 @@ export default function MainLayout({
         <div className="flex gap-8 mt-8 border-b">
           <Link
             to="/ocr"
-            className={`pb-3 ${
-              activeTab === "/ocr"
-                ? "text-red-600 border-b-2 border-red-600"
-                : "text-gray-500"
-            }`}
+            className={`pb-3 ${activeTab === "/ocr"
+              ? "text-red-600 border-b-2 border-red-600"
+              : "text-gray-500"
+              }`}
           >
             OCR Search
           </Link>
 
           <Link
             to="/manual"
-            className={`pb-3 ${
-              activeTab === "/manual"
-                ? "text-red-600 border-b-2 border-red-600"
-                : "text-gray-500"
-            }`}
+            className={`pb-3 ${activeTab === "/manual"
+              ? "text-red-600 border-b-2 border-red-600"
+              : "text-gray-500"
+              }`}
           >
             Manual Search
           </Link>
@@ -45,6 +44,7 @@ export default function MainLayout({
           {children}
         </div>
       </div>
+      <Toaster position="top-right" richColors />
     </div>
   );
 }

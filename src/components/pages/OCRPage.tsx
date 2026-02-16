@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import MainLayout from "./../layout/MainLayout";
 import { ImagePreview } from "../ocr/ImagePreview";
 import UploadArea from "../ocr/UploadArea";
 import OCRResult from "../ocr/OCRResult";
 import { sendImageToOCR } from "../../api/apiOsr";
-import { lookupVehicle } from "../../api/vehicleApi";
+import { lookupVehicle, type Vehicle } from "../../api/vehicleApi";
+
 
 export default function OCRPage() {
   const [image, setImage] = useState<string | null>(null);
   const [plate, setPlate] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [vehicle, setVehicle] = useState<any>(null);
+  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
@@ -19,14 +21,32 @@ export default function OCRPage() {
     const runOCR = async () => {
       setLoading(true);
       setError(null);
+      setVehicle(null); // Reset previous vehicle
 
-      console.log("OCR triggered");
+
 
       try {
         const res = await sendImageToOCR(imageFile);
-        setPlate(res.plate);
+        const ocrPlate = res.plate;
+        setPlate(ocrPlate);
+
+        if (ocrPlate) {
+          // Bridge: Auto lookup using the plate from OCR
+          const data = await lookupVehicle(ocrPlate);
+
+          if (!data || (Array.isArray(data) && data.length === 0)) {
+            toast.error("Vehicle not found from OCR plate", {
+              description: "The extracted plate did not match any vehicle."
+            });
+            setVehicle(null);
+          } else {
+            setVehicle(Array.isArray(data) ? data[0] : data);
+            toast.success("Vehicle found automatically");
+          }
+        }
       } catch (e) {
-        setError("OCR failed");
+        setError("OCR failed or vehicle not found");
+        console.error(e);
       } finally {
         setLoading(false);
       }
@@ -34,13 +54,29 @@ export default function OCRPage() {
 
     runOCR();
   }, [imageFile]);
+
   const handleLookup = async () => {
     if (!plate) return;
 
-    setLoading(true);
-    const data = await lookupVehicle(plate);
-    setVehicle(data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const data = await lookupVehicle(plate);
+
+      if (!data || (Array.isArray(data) && data.length === 0)) {
+        toast.error("Vehicle not found", {
+          description: "Please check the license plate and try again."
+        });
+        setVehicle(null);
+      } else {
+        setVehicle(Array.isArray(data) ? data[0] : data);
+        toast.success("Vehicle found successfully");
+      }
+    } catch (error) {
+
+      toast.error("Failed to lookup vehicle");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,10 +98,11 @@ export default function OCRPage() {
           </div>
           {vehicle && (
             <div className="bg-white p-6 rounded-xl shadow mt-6">
-              <p>Owner: {vehicle.owner}</p>
+              <p>Make: {vehicle.make}</p>
               <p>Model: {vehicle.model}</p>
-              <p>Year: {vehicle.year}</p>
-              <p>Color: {vehicle.color}</p>
+              <p>Color: {vehicle.primary_colour}</p>
+              <p>Fuel: {vehicle.fuel_type}</p>
+              <p>Year: {vehicle.manufacture_date}</p>
             </div>
           )}
         </div>
