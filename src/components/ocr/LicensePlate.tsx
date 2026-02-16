@@ -10,7 +10,7 @@ export default function LicensePlate({ plate }: Props) {
           <span>★★★★★</span>
           <span className="mt-1">UK</span>
         </div>
-        <div className="ml-16 text-4xl md:text-5xl font-extrabold tracking-[0.3em] text-black">
+        <div className="ml-16  md:text-2xl font-extrabold tracking-[0.3em] text-black">
           {plate ?? "— — —"}
         </div>
       </div>

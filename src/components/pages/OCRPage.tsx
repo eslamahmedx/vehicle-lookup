@@ -38,16 +38,9 @@ export default function OCRPage() {
     if (!plate) return;
 
     setLoading(true);
-    setError(null);
-
-    try {
-      const data = await lookupVehicle(plate);
-      setVehicle(data);
-    } catch {
-      setError("Vehicle lookup failed");
-    } finally {
-      setLoading(false);
-    }
+    const data = await lookupVehicle(plate);
+    setVehicle(data);
+    setLoading(false);
   };
 
   return (
@@ -67,6 +60,14 @@ export default function OCRPage() {
           <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl text-sm text-blue-700">
             <strong>Pro Tip:</strong> Ensure the license plate is well-lit and not obstructed.
           </div>
+          {vehicle && (
+            <div className="bg-white p-6 rounded-xl shadow mt-6">
+              <p>Owner: {vehicle.owner}</p>
+              <p>Model: {vehicle.model}</p>
+              <p>Year: {vehicle.year}</p>
+              <p>Color: {vehicle.color}</p>
+            </div>
+          )}
         </div>
       </div>
     </MainLayout>
