@@ -4,7 +4,7 @@ import MainLayout from "./../layout/MainLayout";
 import { ImagePreview } from "../ocr/ImagePreview";
 import UploadArea from "../ocr/UploadArea";
 import OCRResult from "../ocr/OCRResult";
-import { sendImageToOCR } from "../../api/apiOsr";
+import { sendImageToOCR } from "../../api/apiOcr";
 import { lookupVehicle, type Vehicle } from "../../api/vehicleApi";
 
 

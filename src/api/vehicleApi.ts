@@ -1,4 +1,4 @@
-import axios from "axios";
+import { vehicleApi } from "./axiosInstance";
 
 export type Vehicle = {
   registration: string;
@@ -9,11 +9,6 @@ export type Vehicle = {
   manufacture_date: string | null;
   engine_size: number | null;
 };
-
-const api = axios.create({
-  baseURL: "http://10.100.102.6:7116",
-  timeout: 40000,
-});
 
 export type VehicleSearchParams = {
   registration?: string;
@@ -26,31 +21,40 @@ export type VehicleSearchParams = {
 };
 
 export const lookupVehicle = async (registration?: string) => {
-  const response = await api.get("/api/v1/vehicles/by-registration", {
-    params: {
-      registration,
-    },
-  });
-
-
+  const response = await vehicleApi.get(
+    "/api/v1/vehicles/by-registration",
+    {
+      params: { registration },
+    }
+  );
 
   return response.data;
 };
 
-export const searchVehicles = async (params: VehicleSearchParams) => {
+export const searchVehicles = async (
+  params: VehicleSearchParams
+) => {
   if (params.registration) {
-    const response = await api.get("/api/v1/vehicles/by-partial-registration", {
-      params: {
-        ...params,
-        partial_registration: params.registration,
-        registration: undefined
-      },
-    });
-    return response.data;
-  } else {
-    const response = await api.get("/api/v1/vehicles/by-details", {
-      params: params,
-    });
+    const response = await vehicleApi.get(
+      "/api/v1/vehicles/by-partial-registration",
+      {
+        params: {
+          ...params,
+          partial_registration: params.registration,
+          registration: undefined,
+        },
+      }
+    );
+
     return response.data;
   }
+
+  const response = await vehicleApi.get(
+    "/api/v1/vehicles/by-details",
+    {
+      params,
+    }
+  );
+
+  return response.data;
 };

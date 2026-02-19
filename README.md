@@ -1,73 +1,152 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🚗 Vehicle Lookup System
 
-Currently, two official plugins are available:
+### Manual & OCR-Based Vehicle Search Web Application
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-Latest-purple?logo=vite)
+![Axios](https://img.shields.io/badge/Axios-API%20Client-green)
+![Tailwind](https://img.shields.io/badge/TailwindCSS-Styling-38bdf8?logo=tailwindcss)
 
-## React Compiler
+</div>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📌 Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Vehicle Lookup System is a modern web application built with **React + TypeScript** that allows users to:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 🔎 Search vehicles manually using registration data  
+- 📸 Detect license plates using OCR image upload  
+- 🚘 View detailed vehicle information  
+- ⚡ Fetch real-time data from backend APIs  
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## ✨ Features
+
+✔ Manual vehicle search  
+✔ OCR license plate recognition  
+✔ Axios-based API integration  
+✔ Environment variable configuration  
+✔ Responsive modern UI  
+✔ Clean and scalable project structure  
+
+---
+
+## 🛠 Tech Stack
+
+| Technology | Purpose |
+|------------|----------|
+| React | Frontend Library |
+| TypeScript | Type Safety |
+| Vite | Build Tool |
+| Axios | API Requests |
+| Tailwind CSS | Styling |
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+ ├── api/
+ │    ├── axiosInstance.ts
+ │    ├── vehicleApi.ts
+ │    └── apiOcr.ts
+ │
+ ├── pages/
+ │    ├── ManualPage.tsx
+ │    └── OcrPage.tsx
+ │
+ ├── components/
+ ├── layout/
+ └── main.tsx
+
+docs/
+ ├── 1.png   (OCR Page)
+ ├── 2.png   (OCR Result)
+ └── 3.png   (Manual Page)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📦 Installation
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Clone the repository:
+
+```bash
+git clone <your-repository-url>
+cd vehicle-lookup
 ```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run development server:
+
+```bash
+npm run dev
+```
+
+---
+
+## ⚙ Environment Variables
+
+Create a `.env` file in the project root:
+
+```
+VITE_OCR_API_BASE=<your-ocr-api-base-url>
+VITE_VEHICLE_API_BASE=<your-vehicle-api-base-url>
+```
+
+⚠️ Do not commit your `.env` file to GitHub.
+
+---
+
+
+# 📸 Application Screenshots
+
+## 🔍 OCR Page
+
+### Upload Screen
+![OCR Upload](docs/1.png)
+
+### OCR Result
+![OCR Result](docs/2.png)
+
+---
+
+## 🚘 Manual Search Page
+
+![Manual Page](docs/3.png)
+
+---
+
+## 🚀 Future Improvements
+
+- Pagination support  
+- Sorting & advanced filtering  
+- Better loading states  
+- Global error handling  
+- Authentication support  
+- Production deployment  
+
+---
+
+## 🧑‍💻 Author
+
+Developed as part of an internship task.
+
+---
+
+<div align="center">
+
+⭐ If you like this project, consider giving it a star!
+
+</div>
